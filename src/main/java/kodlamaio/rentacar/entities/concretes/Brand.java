@@ -1,12 +1,13 @@
 package kodlamaio.rentacar.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,39 +20,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="cars")
-public class Car {
-	
+@Table(name="brands")
+public class Brand {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="brand_id")
+	private int brandId;
 	
-	@Column(name="daily_price")
-	@NotNull
+	@Column(name="brand_name")
 	@NotBlank
-	private double dailyPrice;
-	
-	@Column(name="model_year")
 	@NotNull
-	@NotBlank
-	private int modelYear;
+	private int brandName;
 	
-	@Column(name="description")
+	@Column(name="model_name")
+	@NotBlank
 	@NotNull
-	@NotBlank
-	private String description;
+	private int modelName;
 	
-	@Column(name="state")
-	@NotNull
-	@NotBlank
-	private String state;  // 1-) Mevcut 2-) Bakımda 3-) Kiralık
-	
-	@ManyToOne
-	@JoinColumn(name="brand_id")
-	private Brand brand;
-	
-	@ManyToOne
-	@JoinColumn(name="color_id")
-	private Color color;
+	@OneToMany
+	private List<Car> cars;
 }
